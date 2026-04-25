@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nam Hoang</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 300;
+      background: #ffffff;
+      color: #000000;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 4rem;
+    }
+
+    .nav-identity {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .nav-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .nav-name {
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav-links a { opacity: 0.5; transition: opacity 0.2s; }
+    .nav-links a:hover { opacity: 1; }
+
+    /* HERO */
+    .hero {
+      padding: 6rem 4rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: #f5fe55;
+      color: #000;
+      padding: 4px 10px;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-name {
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-avatar {
+      width: 75%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .hero-name span { display: block; color: #092785; }
+
+    .hero-desc {
+      font-size: 1rem;
+      line-height: 1.7;
+      opacity: 0.65;
+      max-width: 420px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.4;
+    }
+
+    /* SECTION LABEL */
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.35;
+      margin-bottom: 2.5rem;
+    }
+
+    /* PROJECTS */
+    .projects {
+      padding: 5rem 4rem;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .project-card {
+      padding: 3rem 3rem 3rem 0;
+      transition: background 0.2s;
+    }
+
+    .project-card:hover { background: #fafaf8; }
+
+    .project-card:nth-child(even) {
+      padding: 3rem 0 3rem 3rem;
+    }
+
+    .project-number {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.25;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-title {
+      font-size: 2rem;
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+    }
+
+    .project-status {
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 9px;
+      white-space: nowrap;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .project-status.live   { background: #22812a; color: #fff; }
+    .project-status.progress { background: #ff8801; color: #fff; }
+    .project-status.webmaster { background: #092785; color: #fff; }
+    .project-status.done   { background: #000; color: #fff; }
+
+    .project-desc {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      opacity: 0.58;
+      margin-bottom: 1.25rem;
+    }
+
+    .project-impact {
+      font-size: 0.82rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      padding-left: 1rem;
+      border-left: 2px solid #f5fe55;
+    }
+
+    .stack { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .tag {
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border: 1px solid rgba(0,0,0,0.18);
+      color: rgba(0,0,0,0.45);
+    }
+
+    /* EXPERIENCE */
+    .experience {
+      padding: 5rem 4rem;
+    }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 2fr 3fr 1fr;
+      gap: 2rem;
+      align-items: start;
+      padding: 2rem 0;
+    }
+
+    .exp-role {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.3;
+    }
+
+    .exp-org {
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.38;
+      margin-top: 5px;
+    }
+
+    .exp-desc {
+      font-size: 0.85rem;
+      line-height: 1.75;
+      opacity: 0.58;
+    }
+
+    .exp-year {
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.3;
+      text-align: right;
+      padding-top: 3px;
+    }
+
+    /* SKILLS */
+    .skills {
+      padding: 5rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .skill-group-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.32;
+      margin-bottom: 0.75rem;
+    }
+
+    .skill-list {
+      font-size: 0.88rem;
+      line-height: 2;
+      opacity: 0.65;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 2.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-name {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.3;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .footer-links a { opacity: 0.38; transition: opacity 0.2s; }
+    .footer-links a:hover { opacity: 1; }
+
+    .footer-edu {
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.28;
+      text-align: right;
+      line-height: 1.8;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-tag  { animation: fadeUp 0.6s ease both 0.05s; }
+    .hero-name { animation: fadeUp 0.6s ease both 0.15s; }
+    .hero-desc { animation: fadeUp 0.6s ease both 0.25s; }
+    .hero-meta { animation: fadeUp 0.6s ease both 0.35s; }
+
+    .project-card:nth-child(1) { animation: fadeUp 0.6s ease both 0.1s; }
+    .project-card:nth-child(2) { animation: fadeUp 0.6s ease both 0.2s; }
+    .project-card:nth-child(3) { animation: fadeUp 0.6s ease both 0.3s; }
+    .project-card:nth-child(4) { animation: fadeUp 0.6s ease both 0.4s; }
+
+    /* PROJECT PREVIEW */
+    .project-preview {
+      margin-top: 1.5rem;
+      border: 1px solid rgba(0,0,0,0.12);
+      overflow: hidden;
+    }
+
+    .preview-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 0.75rem;
+      background: #f0f0ee;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .preview-dots { display: flex; gap: 5px; flex-shrink: 0; }
+
+    .preview-dots span {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+    }
+
+    .preview-dots span:nth-child(1) { background: #ff5f57; }
+    .preview-dots span:nth-child(2) { background: #febc2e; }
+    .preview-dots span:nth-child(3) { background: #28c840; }
+
+    .preview-url {
+      font-size: 0.65rem;
+      color: rgba(0,0,0,0.4);
+      background: rgba(0,0,0,0.06);
+      padding: 2px 10px;
+      border-radius: 3px;
+      flex: 1;
+      text-align: center;
+    }
+
+    .preview-frame {
+      height: 300px;
+      background: #fafafa;
+      overflow: hidden;
+    }
+
+    .preview-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .preview-link {
+      display: block;
+      text-align: center;
+      padding: 0.55rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: #f5f5f3;
+      border-top: 1px solid rgba(0,0,0,0.07);
+      color: rgba(0,0,0,0.45);
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .preview-link:hover { color: #000; background: #ebebeb; }
+
+    /* PROJECT MEDIA */
+    .project-media {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .project-media img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      max-height: 220px;
+    }
+
+    .project-media img.full {
+      object-fit: contain;
+      max-height: none;
+      height: auto;
+    }
+
+    .project-media video {
+      width: 100%;
+      display: block;
+      max-height: 220px;
+      background: #000;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-name">Nam Hoang</div>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="mailto:nhat@vt.edu">Contact</a>
+      <a href="webresume.pdf" target="_blank">Resume</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <div class="hero-tag">CS@VT</div>
+      <h1 class="hero-name">
+        Nam
+        <span>Hoang</span>
+      </h1>
+      <p class="hero-desc">
+        CS student at Virginia Tech building full-stack web and mobile applications.
+        Interested in platforms that connect people — through music, community, and code.
+      </p>
+      <div class="hero-meta">
+        <span>nhat@vt.edu</span>
+        <span>linkedin.com/in/nam-nhat-hoang</span>
+        <span>Blacksburg, VA</span>
+      </div>
+    </div>
+    <img class="hero-avatar" src="images/IMG_4238.jpeg" alt="Nam Hoang" />
+  </section>
+
+  <section class="projects" id="projects">
+    <div class="section-label">Selected Work</div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-number">01</div>
+        <div class="project-header">
+          <h2 class="project-title">RhyView</h2>
+          <span class="project-status progress">In Progress</span>
+        </div>
+        <p class="project-desc">
+          A Letterboxd-style music discovery and rating platform. A unified backend serves both a Next.js web app and a React Native mobile app, with Spotify OAuth integration for real-time music search and metadata retrieval.
+        </p>
+        <p class="project-impact">Cross-platform architecture serving web and mobile from a single backend</p>
+        <div class="stack">
+          <span class="tag">Next.js</span>
+          <span class="tag">React Native</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Spotify API</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">Tailwind</span>
+          <span class="tag">Supabase Auth</span>
+        </div>
+        <div class="project-media">
+          <img src="images/horse.gif" alt="horse" class="full" />
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-number">02</div>
+        <div class="project-header">
+          <h2 class="project-title">PayDay</h2>
+          <span class="project-status live">Live</span>
+        </div>
+        <p class="project-desc">
+          A full-stack Progressive Web App replacing a paper-based payroll system for a local small business. Eliminated manual data entry errors and introduced role-separated views for different user types.
+        </p>
+        <p class="project-impact">Deployed to production — real users, real impact for a local business</p>
+        <div class="stack">
+          <span class="tag">React PWA</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">Express</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">JWT</span>
+          <span class="tag">Vercel</span>
+          <span class="tag">Railway</span>
+        </div>
+        <div class="project-preview">
+          <div class="preview-bar">
+            <div class="preview-dots"><span></span><span></span><span></span></div>
+            <div class="preview-url">payday-eta.vercel.app</div>
+          </div>
+          <div class="preview-frame">
+            <iframe src="https://payday-eta.vercel.app/" loading="lazy" title="PayDay live preview"></iframe>
+          </div>
+          <a class="preview-link" href="https://payday-eta.vercel.app/" target="_blank" rel="noopener">Visit Site ↗</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-number">03</div>
+        <div class="project-header">
+          <h2 class="project-title">Troop 904 Site</h2>
+          <span class="project-status webmaster">Webmaster</span>
+        </div>
+        <p class="project-desc">
+          Served as webmaster for Liên Đoàn Thăng Long Troop 904, a Viet-American Scouts BSA troop. Managed content, coordinated with the historian, and enforced BSA privacy guidelines around publicly visible youth content.
+        </p>
+        <p class="project-impact">Managed content pipeline across multiple contributors and enforced youth privacy standards</p>
+        <div class="stack">
+          <span class="tag">Google Sites</span>
+          <span class="tag">Content Management</span>
+          <span class="tag">Privacy Compliance</span>
+          <span class="tag">Cross-team Coordination</span>
+        </div>
+        <div class="project-preview">
+          <div class="preview-bar">
+            <div class="preview-dots"><span></span><span></span><span></span></div>
+            <div class="preview-url">sites.google.com/scouting904ldtl.org/public</div>
+          </div>
+          <div class="preview-frame">
+            <iframe src="https://sites.google.com/scouting904ldtl.org/public/" loading="lazy" title="Troop 904 site preview"></iframe>
+          </div>
+          <a class="preview-link" href="https://sites.google.com/scouting904ldtl.org/public/" target="_blank" rel="noopener">Visit Site ↗</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-number">04</div>
+        <div class="project-header">
+          <h2 class="project-title">Eagle Scout Project</h2>
+          <span class="project-status done">Completed</span>
+        </div>
+        <p class="project-desc">
+          Directed a 15-person volunteer team to design and install a 15-foot flagpole for a Vietnamese-owned local daycare. Managed material procurement, site safety, and real-time plan adaptation when construction obstacles arose.
+        </p>
+        <p class="project-impact">Led 15 volunteers from planning to execution — adapted in real time to unforeseen obstacles</p>
+        <div class="stack">
+          <span class="tag">Team Leadership</span>
+          <span class="tag">Project Management</span>
+          <span class="tag">Logistics</span>
+          <span class="tag">Community Service</span>
+        </div>
+        <div class="project-media">
+          <img src="images/IMG_5422.jpeg" alt="Team photo with completed flagpole installation" loading="lazy" />
+          <video controls preload="none">
+            <source src="images/IMG_5467.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="experience" id="experience">
+    <div class="section-label">Experience</div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-role">Troop Webmaster</div>
+        <div class="exp-org">Liên Đoàn Thăng Long · Scouts BSA</div>
+      </div>
+      <div class="exp-desc">
+        Maintained and updated the troop website, coordinated with the historian to keep photo and event content current, and enforced BSA privacy guidelines around youth-visible content.
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-role">Eagle Scout · Project Lead</div>
+        <div class="exp-org">Boy Scouts of America</div>
+      </div>
+      <div class="exp-desc">
+        Directed a 15-person volunteer team to design and install a flagpole for a local Vietnamese-owned daycare. Managed procurement, site safety, and adapted plans in real time to resolve construction obstacles.
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-role">Event MC &amp; Organizer</div>
+        <div class="exp-org">Scouts BSA · Troop 904</div>
+      </div>
+      <div class="exp-desc">
+        Planned, organized, and MCed multiple troop events including Courts of Honor and campfire programs. Managed event flow, timing, and audience energy from planning through execution.
+      </div>
+    </div>
+
+  </section>
+
+  <section class="skills">
+    <div class="section-label">Skills</div>
+    <div class="skills-grid">
+      <div>
+        <div class="skill-group-label">Languages</div>
+        <div class="skill-list">
+          JavaScript<br>TypeScript<br>Python<br>Java<br>C
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-label">Frameworks &amp; Tools</div>
+        <div class="skill-list">
+          React / Next.js<br>React Native<br>Node.js / Express<br>PostgreSQL<br>Docker · Git
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-label">Soft Skills</div>
+        <div class="skill-list">
+          Team Coordination<br>Conflict Resolution<br>Event Planning<br>Public Speaking<br>Agile Adaptation
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-name">Nam Hoang · 2025</div>
+    <div class="footer-links">
+      <a href="mailto:nhat@vt.edu">nhat@vt.edu</a>
+      <a href="https://linkedin.com/in/nam-nhat-hoang" target="_blank">LinkedIn</a>
+    </div>
+    <div class="footer-edu">
+      B.S. Computer Science · Virginia Tech<br>
+      Expected May 2027 · GPA 3.66
+    </div>
+  </footer>
+
+</body>
+</html>
